@@ -801,6 +801,11 @@ public class CParserUtils {
     }
 
     private static File findFile(String parent, String filename) {
+        // CParser stores filenames assuming Microsoft Windows file separation paradigm; work-around to support
+        // filenames with separators with UNIX file separation paradigm
+        if (File.separator == "/")
+            filename = filename.replaceAll("\\", "/");
+
         File iFile = null;
 
         iFile = new File(parent + File.separator + filename);
